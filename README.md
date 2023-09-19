@@ -43,7 +43,7 @@ Open the script and modify the following variables to match your setup:
 4. Run the script using the following command:
 
    ```shell
-   python3 script.py
+   python3 hue2lox.py
    ```
 
    The script will connect to your Philips Hue bridge, subscribe to events, and start listening for changes.
