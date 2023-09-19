@@ -1,19 +1,22 @@
-from aiohue import HueBridgeV2
+"""A python script to send Philips Hue accessory events 
+   (Dimmer switch, motion sensor, ...) to a Loxone Miniserver."""
 import asyncio
 import socket
+from aiohue import HueBridgeV2 # pylint: disable=import-error
 
 # Insert the ip address and API key of you Philips Hue bridge
-hue_ip = "192.168.1.123"
-hue_api_key = "abcdefghijklmnopqrstuvwxyz"
+HUE_IP = "192.168.1.123"
+HUE_API_KEY = "abcdefghijklmnopqrstuvwxyz"
 
-# Insert the ip address and upd port of your Loxone miniserver
-loxone_ip = "192.168.1.234"
-loxone_udp_port = 1234
+# Insert the ip address and upd port of your Loxone Miniserver
+LOXONE_IP = "192.168.1.234"
+LOXONE_UDP_PORT = 1234
 
 
 def parse_event(event_type, item):
-    # print("received event", event_type.value, item)
-    sensor_state = 0
+    """Parse Philips hue events"""
+    print("received event", event_type.value, item)
+    sensor_state = 0 # pylint: disable=unused-variable
     sensor_id = ""
 
     if item.type.name == "BUTTON":
@@ -25,7 +28,7 @@ def parse_event(event_type, item):
             # Leave function early
             print("EVENT: unknown button event")
             return
-        sensor_state = "{}/{}".format(item.metadata.control_id, sensor_state)
+        sensor_state = "{item.metadata.control_id}/{sensor_state}"
         sensor_id = item.id_v1
 
     elif item.type.name == "MOTION":
@@ -42,16 +45,17 @@ def parse_event(event_type, item):
     # else:
     #     print("received event", event_type.value, item)
 
-    if not sensor_id == "":
-        event = "hue_event{}/{}".format(sensor_id, sensor_state)
-        print("EVENT: {}".format(event))
+    if sensor_id != "":
+        event = "hue_event{sensor_id}/{sensor_state}"
+        print("EVENT: {event}")
         # Send UDP packet to Loxone Miniserver
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.sendto(bytes(event, "utf-8"), (loxone_ip, loxone_udp_port))
+        sock.sendto(bytes(event, "utf-8"), (LOXONE_IP, LOXONE_UDP_PORT))
 
 
 async def main():
-    async with HueBridgeV2(hue_ip, hue_api_key) as bridge:
+    """Main application"""
+    async with HueBridgeV2(HUE_IP, HUE_API_KEY) as bridge:
         print("Connected to bridge: ", bridge.bridge_id)
         print("Subscribing to events...")
         bridge.subscribe(parse_event)
