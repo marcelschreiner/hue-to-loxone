@@ -2,6 +2,14 @@
 
 ![Pylint](https://github.com/marcelschreiner/hue-to-loxone/actions/workflows/pylint.yml/badge.svg)
 [![HitCount](https://hits.dwyl.com/marcelschreiner/hue-to-loxone.svg?style=flat)](http://hits.dwyl.com/marcelschreiner/hue-to-loxone)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=bugs)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
 
 This Python script allows you to integrate your Philips Hue smart lighting system with your Loxone Miniserver. By running this script, you can listen for events from your Hue bridge and send corresponding updates to your Loxone Miniserver over UDP.
 
@@ -58,3 +66,8 @@ Feel free to modify and extend the script to support additional Philips Hue devi
 ## License
 
 This script is provided under the [MIT License](LICENSE.md). Feel free to modify and use it according to your needs.
+
+<br />
+
+[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-black.svg)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+
