@@ -28,7 +28,7 @@ def parse_event(event_type, item):
             # Leave function early
             print("EVENT: unknown button event")
             return
-        sensor_state = "{item.metadata.control_id}/{sensor_state}"
+        sensor_state = f"{item.metadata.control_id}/{sensor_state}"
         sensor_id = item.id_v1
 
     elif item.type.name == "MOTION":
@@ -46,8 +46,8 @@ def parse_event(event_type, item):
     #     print("received event", event_type.value, item)
 
     if sensor_id != "":
-        event = "hue_event{sensor_id}/{sensor_state}"
-        print("EVENT: {event}")
+        event = f"hue_event{sensor_id}/{sensor_state}"
+        print(f"EVENT: {event}")
         # Send UDP packet to Loxone Miniserver
         sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         sock.sendto(bytes(event, "utf-8"), (LOXONE_IP, LOXONE_UDP_PORT))
