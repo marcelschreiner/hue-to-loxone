@@ -1,6 +1,6 @@
 """A python script to get a hue api key from a Philips Hue bridge."""
 import asyncio
-from aiohue import create_app_key
+from aiohue import create_app_key # pylint: disable=import-error
 
 # Insert the ip address of you Philips Hue bridge
 HUE_IP = "192.168.1.123"
