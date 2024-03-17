@@ -2,8 +2,8 @@
    (Dimmer switch, motion sensor, ...) to a Loxone Miniserver."""
 
 import asyncio
-import requests
 import socket
+import requests  # pylint: disable=import-error
 from aiohue import HueBridgeV2  # pylint: disable=import-error
 
 # Insert the ip address and API key of you Philips Hue bridge
@@ -19,54 +19,55 @@ LOXONE_UDP_PORT = 1234
 names = {}
 
 
+# pylint: disable=unused-argument
 def parse_event(event_type, item):
     """Parse Philips hue events"""
     # print("received event", event_type.value, item)
-    state = 0  # pylint: disable=unused-variable
-    id = ""
+    item_state = 0  # pylint: disable=unused-variable
+    item_id = ""
 
     if item.type.name == "BUTTON":
         if item.button.last_event.value in ["initial_press", "repeat"]:
-            state = 1
+            item_state = 1
         elif item.button.last_event.value in ["short_release", "long_release"]:
-            state = 0
+            item_state = 0
         else:
             # Leave function early
             print("EVENT: unknown button event")
             return
-        state = f"{item.metadata.control_id}/{state}"
-        id = item.id_v1
+        item_state = f"{item.metadata.control_id}/{item_state}"
+        item_id = item.id_v1
 
     elif item.type.name == "MOTION":
-        state = int(item.motion.motion)
-        id = item.id_v1
+        item_state = int(item.motion.motion)
+        item_id = item.id_v1
 
     elif item.type.name == "LIGHT_LEVEL":
-        state = item.light.light_level
-        id = item.id_v1
+        item_state = item.light.light_level
+        item_id = item.id_v1
 
     elif item.type.name == "TEMPERATURE":
-        state = item.temperature.temperature
-        id = item.id_v1
+        item_state = item.temperature.temperature
+        item_id = item.id_v1
 
     elif item.type.name == "GROUPED_LIGHT":
-        state = int(item.on.on)
-        id = item.id_v1
+        item_state = int(item.on.on)
+        item_id = item.id_v1
 
     elif item.type.name == "LIGHT":
-        state = int(item.is_on)
-        id = item.id_v1
+        item_state = int(item.is_on)
+        item_id = item.id_v1
 
     elif item.type.name == "DEVICE_POWER":
-        state = item.power_state.battery_level
-        id = item.id_v1
+        item_state = item.power_state.battery_level
+        item_id = item.id_v1
 
-    if id != "":
+    if item_id != "":
         try:
-            event = f"hue_event{id}/{state}     # {names[id]}"
+            event = f"hue_event{item_id}/{item_state}     # {names[item_id]}"
         except KeyError:
             # If the name is not found, do not send include it in the event
-            event = f"hue_event{id}/{state}"
+            event = f"hue_event{item_id}/{item_state}"
 
         print(f"EVENT: {event}")
         # Send UDP packet to Loxone Miniserver
@@ -77,12 +78,12 @@ def parse_event(event_type, item):
 def get_names():
     """Get the names of the lights groups and sensors"""
     url = f"http://{HUE_IP}/api/{HUE_API_KEY}"
-    response = requests.get(url)
+    response = requests.get(url, timeout=60)
     data = response.json()
 
-    for type in ["lights", "groups", "sensors"]:
-        for key, value in data[type].items():
-            names[f"/{type}/{key}"] = value["name"]
+    for item_type in ["lights", "groups", "sensors"]:
+        for key, value in data[item_type].items():
+            names[f"/{item_type}/{key}"] = value["name"]
 
     # Special addition for the group "0" which is all lights
     names["/groups/0"] = "All lights"
