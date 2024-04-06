@@ -1,4 +1,6 @@
-# Philips Hue to Loxone Bridge
+<p align="center">
+  <img alt="logo" src="docs/main_banner.webp">
+</p>
 
 ![Pylint](https://github.com/marcelschreiner/hue-to-loxone/actions/workflows/pylint.yml/badge.svg)
 [![HitCount](https://hits.dwyl.com/marcelschreiner/hue-to-loxone.svg?style=flat)](http://hits.dwyl.com/marcelschreiner/hue-to-loxone)
@@ -10,6 +12,8 @@
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=marcelschreiner_hue-to-loxone&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=marcelschreiner_hue-to-loxone)
+
+# Philips Hue to Loxone Bridge
 
 This Python script allows you to integrate your Philips Hue smart lighting system with your Loxone Miniserver. By running this script, you can listen for events from your Hue bridge and send corresponding updates to your Loxone Miniserver over UDP.
 
