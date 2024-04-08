@@ -84,6 +84,7 @@ def get_names():
     for item_type in ["lights", "groups", "sensors"]:
         for key, value in data[item_type].items():
             names[f"/{item_type}/{key}"] = value["name"]
+            print(f"{item_type}/{key}: {value['name']}")
 
     # Special addition for the group "0" which is all lights
     names["/groups/0"] = "All lights"
@@ -93,7 +94,7 @@ async def main():
     """Main application"""
     async with HueBridgeV2(HUE_IP, HUE_API_KEY) as bridge:
         print("Connected to bridge: ", bridge.bridge_id)
-        print("Getting light names...")
+        print("Getting item names...")
         get_names()
         print("Subscribing to events...")
         bridge.subscribe(parse_event)

@@ -16,7 +16,7 @@ async def main():
     try:
         api_key = await create_app_key(HUE_IP, "authentication_example")
         print("Authentication succeeded, api key: ", api_key)
-        print("NOTE: Add hue_app_key in main.py for next connections, it does not expire.")
+        print("NOTE: Add api key in hue2lox.py for next connections, it does not expire.")
     except Exception as exc:  # pylint: disable=broad-exception-caught
         print("ERROR: ", str(exc))
 
