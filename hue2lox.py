@@ -43,7 +43,7 @@ def parse_event(event_type, item):
         item_id = item.id_v1
 
     elif item.type.name == "LIGHT_LEVEL":
-        item_state = item.light.light_level
+        item_state = int(10 ** (item.light.light_level / 10000)) - 1
         item_id = item.id_v1
 
     elif item.type.name == "TEMPERATURE":
